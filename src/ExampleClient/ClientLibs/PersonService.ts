@@ -74,6 +74,7 @@ export class PersonService {
      * @returns A promise that will resolve when the operation is complete.
      */
     create(data): Promise<any> {
+        delete data.id;
         return http.post(this.url, data);
     }
 
