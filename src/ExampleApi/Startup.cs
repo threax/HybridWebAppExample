@@ -70,6 +70,19 @@ namespace ExampleApi
 
             app.UseApplicationInsightsExceptionTelemetry();
 
+            if (env.IsDevelopment())
+            {
+                //Allow all sites since this is a demo. This is unsafe, don't do it.
+                app.UseCors(builder =>
+                {
+                    builder
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin()
+                    .AllowCredentials();
+                });
+            }
+
             app.UseConventionalSwagger(apiInfo);
 
             app.UseMvc();

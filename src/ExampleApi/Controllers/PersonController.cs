@@ -18,35 +18,33 @@ namespace ExampleApi.Controllers
             this.personRepo = personRepo;
         }
 
-        // GET api/values
         [HttpGet]
         public IEnumerable<Person> Get()
         {
             return personRepo.List();
         }
 
-        // GET api/values/5
         [HttpGet("{id}")]
         public Person Get(Guid id)
         {
             return personRepo.Get(id);
         }
 
-        // POST api/values
         [HttpPost]
+        [AutoValidate]
         public void Post([FromBody]Person value)
         {
             personRepo.Add(value);
         }
 
-        // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put([FromBody]Person value)
+        [AutoValidate]
+        public void Put(Guid id, [FromBody]Person value)
         {
+            value.Id = id;
             personRepo.Update(value);
         }
 
-        // DELETE api/values/5
         [HttpDelete("{id}")]
         public void Delete(Guid id)
         {
